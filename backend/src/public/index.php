@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS'){
 
 $uri = strtok($_SERVER['REQUEST_URI'], '?');
 
-match ($uri) {
+match ($uri) {  
     '/api/users' => require __DIR__ . '/../src/api.php',
     default => notfound(),
 };
