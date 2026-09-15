@@ -8,6 +8,7 @@ in_array($origin, $allowedOrigins) ?
     header("Acess-Control-Allow-Origin: $origin") : null;
 header('Acess-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
 header('Acess-Control-Allow-Headers: Content-Type');
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS'){
     http_response_code(204);
