@@ -31,3 +31,23 @@ function saveData(array $data): void
 {
     file_put_contents(DATA_FILE, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 }
+
+
+function withDataLock (callable $operation) : mixed
+{
+    $lock = fopen(DATA_FILE, 'c');
+    
+    if ($lock === false) {
+        throw new RuntimeException('could not open the data file');
+    }
+    try {
+        if(!flock($lock, LOCK_EX)) {
+            throw new RuntimeExeption('could not lock the data file');
+        }
+        return $operation();
+    }finally {
+        flock($lock, LOCK_UN);
+        fclose($lock);
+    }
+    
+}
